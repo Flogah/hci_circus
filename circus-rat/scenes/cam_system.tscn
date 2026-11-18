@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cgekyn5sdqeli"]
+
+[ext_resource type="Script" uid="uid://bi5hajcr7erix" path="res://scripts/camera_system/camera_arm.gd" id="1_588b5"]
+[ext_resource type="Script" uid="uid://b5m40gmwgleoq" path="res://scripts/camera_system/camera_3d.gd" id="2_or2fa"]
+
+[node name="CamSystem" type="Node3D" unique_id=1524334975]
+script = ExtResource("1_588b5")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=63601677]
+spring_length = 10.0
+
+[node name="TargetPosition" type="Node3D" parent="SpringArm3D" unique_id=1006490662]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1440742541]
+script = ExtResource("2_or2fa")

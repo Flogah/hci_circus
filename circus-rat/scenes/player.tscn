@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://lkdyenr4mf2c"]
+
+[ext_resource type="Texture2D" uid="uid://d0joxcicffvvp" path="res://icon.svg" id="1_g2els"]
+[ext_resource type="Script" uid="uid://cwo7q7gvkwgsv" path="res://scenes/player.gd" id="1_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://ccfq2eyl5m7jq" path="res://assets/textures/ProtoTex/Orange/texture_04.png" id="2_qhqgy"]
+[ext_resource type="Script" uid="uid://b5orq854wgj4v" path="res://scripts/input_manager.gd" id="4_dqkch"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckr0i"]
+albedo_texture = ExtResource("2_qhqgy")
+uv1_triplanar = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_ifpyu"]
+material = SubResource("StandardMaterial3D_ckr0i")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ifpyu"]
+
+[node name="Player" type="Node3D" unique_id=1397222929 node_paths=PackedStringArray("input_manager")]
+script = ExtResource("1_qhqgy")
+input_manager = NodePath("InputManager")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=105484274]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.1881586, 0)
+texture = ExtResource("1_g2els")
+
+[node name="Ball" type="RigidBody3D" parent="." unique_id=969521298]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball" unique_id=1858313528]
+mesh = SubResource("SphereMesh_ifpyu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball" unique_id=856811526]
+shape = SubResource("SphereShape3D_ifpyu")
+
+[node name="InputManager" type="Node" parent="." unique_id=1519919217]
+script = ExtResource("4_dqkch")
+metadata/_custom_type_script = "uid://b5orq854wgj4v"
