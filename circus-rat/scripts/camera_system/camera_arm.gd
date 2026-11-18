@@ -4,8 +4,7 @@ extends Node3D
 @export_range(-90.0, 90.0,  0.1, "radians_as_degrees") var min_vertical_angle: float = -PI/2
 @export_range(-90.0, 90.0,  0.1, "radians_as_degrees") var max_vertical_angle: float = PI/4
 
-@onready var camera_arm: SpringArm3D = %CameraArm
-@onready var spring_position: Node3D = %SpringPosition
+@onready var spring_arm: SpringArm3D = %SpringArm3D
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -20,9 +19,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 	
 	if event.is_action_pressed("camera_zoom_in"):
-		camera_arm.spring_length -= 1
+		spring_arm.spring_length -= 1
 	if event.is_action_pressed("camera_zoom_out"):
-		camera_arm.spring_length += 1
+		spring_arm.spring_length += 1
 	
 	if event.is_action_pressed("toggle_mouse_capture"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:

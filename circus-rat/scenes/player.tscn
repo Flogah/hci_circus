@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d0joxcicffvvp" path="res://icon.svg" id="1_g2els"]
 [ext_resource type="Script" uid="uid://cwo7q7gvkwgsv" path="res://scenes/player.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://ccfq2eyl5m7jq" path="res://assets/textures/ProtoTex/Orange/texture_04.png" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://cgekyn5sdqeli" path="res://scenes/cam_system.tscn" id="3_qlg0r"]
 [ext_resource type="Script" uid="uid://b5orq854wgj4v" path="res://scripts/input_manager.gd" id="4_dqkch"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckr0i"]
@@ -20,10 +21,15 @@ input_manager = NodePath("InputManager")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=105484274]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.1881586, 0)
+billboard = 1
 texture = ExtResource("1_g2els")
+
+[node name="CamSystem" parent="Sprite3D" unique_id=1524334975 instance=ExtResource("3_qlg0r")]
+transform = Transform3D(3.333333, 0, 0, 0, 2.6284945, 2.0499089, 0, -2.0499089, 2.6284945, 0, -3.9605284, 0)
 
 [node name="Ball" type="RigidBody3D" parent="." unique_id=969521298]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ball" unique_id=1858313528]
 mesh = SubResource("SphereMesh_ifpyu")

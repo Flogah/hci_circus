@@ -1,57 +1,48 @@
 extends Node3D
 
-@export var max_speed:float = 10.0
-@export var turn_speed:float = 50.0
-@export var min_turning_velocity:float = 1.0
-
+@export var debug:bool = false
+@export var acceleration:float = 5.0
+@export var breaking: float = 5.0
+@export var max_speed:float = 20.0
 @export var input_manager: InputManager
-
-@export var traction_force:float = 0.5
-@export var max_lean:float = 0.0
 
 @onready var rat: Sprite3D = $Sprite3D
 var rat_offset:Vector3 = Vector3.ZERO
-
 @onready var ball: RigidBody3D = $Ball
-@onready var steering_body: Node3D = %SteeringBody
 
 var can_run:bool = true
 var intended_dir: Vector3 = Vector3.ZERO
 
 func _ready() -> void:
-	rat_offset = ball.position - rat.position
+	rat_offset = rat.position - ball.position
 	input_manager.input_direction_detected.connect(func(new_dir): intended_dir = new_dir)
 
 func _physics_process(delta: float) -> void:
+	rat.position = ball.position + rat_offset
+	rotate_direction_to_camera()
 	drive_ball(delta)
 
 func drive_ball(delta):
-	rat.position = ball.position
-	steering_body.position = ball.position
+	var desired_speed: float = max_speed * intended_dir.length()
+	var curr_speed:float = ball.linear_velocity.length()
+	var instant_speed:float = (desired_speed - curr_speed) / delta
+	var accel_force = instant_speed * ball.mass
+	var limited_force:float = clampf(accel_force, -breaking, acceleration)
+	print(limited_force)
 	
-	# go forward
-	#var speed_input: float = Input.get_axis("slow_down", "acceleration")
-	var desired_speed: float = intended_dir.length() 
-	var curr_fwd_speed:float = get_forward().dot(ball.linear_velocity)
-	var instant_fwd_speed:float = (desired_speed - curr_fwd_speed) / delta
-	var accel_force = instant_fwd_speed * ball.mass
-	var limited_force:float = clampf(accel_force, -5.0, 5.0)
+	if debug:
+		Draw3d.line(ball.global_position, ball.global_position + ball.linear_velocity.normalized() * limited_force, Color.HOT_PINK, 1)
+		Draw3d.line(ball.global_position, ball.global_position + intended_dir * 2.0, Color.GREEN, 1)
+		Draw3d.line(ball.global_position, ball.global_position + Vector3.UP * curr_speed, Color.RED, 1)
 	
 	if can_run:
-		ball.apply_central_force(get_forward() * limited_force)
+		if intended_dir.length_squared() > 0.0:
+			ball.apply_central_force(intended_dir * limited_force)
+		else:
+			ball.apply_central_force( ball.linear_velocity.normalized() * limited_force)
 	else:
 		ball.apply_central_force(-ball.linear_velocity)
-	
-	# traction
-	var right = get_right()
-	var current_side_speed:float = right.dot(ball.linear_velocity)
-	var instant_side_accel:float = (0.0 - current_side_speed) / delta
-	var side_force:float = instant_side_accel * ball.mass
-	var limited_side_force:float = side_force * traction_force
-	ball.apply_central_force(right * limited_side_force)
 
-func get_forward() -> Vector3:
-	return -steering_body.global_basis.z
-
-func get_right() -> Vector3:
-	return steering_body.basis.x
+func rotate_direction_to_camera():
+	var current_camera = get_viewport().get_camera_3d()
+	intended_dir = intended_dir.rotated(Vector3.UP, current_camera.global_rotation.y).normalized()

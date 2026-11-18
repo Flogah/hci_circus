@@ -1,32 +1,47 @@
 [gd_scene format=3 uid="uid://kyeq1uwaahea"]
 
-[ext_resource type="Texture2D" uid="uid://ccfq2eyl5m7jq" path="res://assets/textures/ProtoTex/Orange/texture_04.png" id="1_0wfyh"]
-[ext_resource type="Texture2D" uid="uid://d0joxcicffvvp" path="res://icon.svg" id="1_sugp2"]
-[ext_resource type="PackedScene" uid="uid://cgekyn5sdqeli" path="res://scenes/cam_system.tscn" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://lkdyenr4mf2c" path="res://scenes/player.tscn" id="1_sugp2"]
+[ext_resource type="Texture2D" uid="uid://dmiqcou216o7u" path="res://assets/textures/ProtoTex/Dark/texture_04.png" id="3_jyhfs"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sugp2"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_jyhfs"]
+sky_material = SubResource("ProceduralSkyMaterial_sugp2")
+
+[sub_resource type="Environment" id="Environment_tbgi4"]
+background_mode = 2
+sky = SubResource("Sky_jyhfs")
+glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckr0i"]
-albedo_texture = ExtResource("1_0wfyh")
+albedo_texture = ExtResource("3_jyhfs")
 uv1_triplanar = true
 
-[sub_resource type="SphereMesh" id="SphereMesh_ifpyu"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_ifpyu"]
 material = SubResource("StandardMaterial3D_ckr0i")
+size = Vector2(20, 20)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ifpyu"]
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ifpyu"]
 
 [node name="Main" type="Node3D" unique_id=516104811]
 
-[node name="Player" type="Node3D" parent="." unique_id=951918479]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1859546444]
+environment = SubResource("Environment_tbgi4")
 
-[node name="Sprite3D" type="Sprite3D" parent="Player" unique_id=126262215]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0.68815863, 0)
-texture = ExtResource("1_sugp2")
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1119213626]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
 
-[node name="Ball" type="RigidBody3D" parent="Player" unique_id=2004939948]
+[node name="Player" parent="." unique_id=1397222929 instance=ExtResource("1_sugp2")]
+debug = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/Ball" unique_id=1043159795]
-mesh = SubResource("SphereMesh_ifpyu")
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1883316386]
+collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/Ball" unique_id=801845255]
-shape = SubResource("SphereShape3D_ifpyu")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=796569087]
+mesh = SubResource("PlaneMesh_ifpyu")
 
-[node name="CamSystem" parent="." unique_id=1524334975 instance=ExtResource("2_sugp2")]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=2013835885]
+shape = SubResource("WorldBoundaryShape3D_ifpyu")
