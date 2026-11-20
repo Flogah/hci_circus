@@ -24,6 +24,10 @@ Draw3d="*uid://brmn835j7y8ew"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godOSC/plugin.cfg")
+
 [input]
 
 left={

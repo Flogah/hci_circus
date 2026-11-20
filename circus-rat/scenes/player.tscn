@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ccfq2eyl5m7jq" path="res://assets/textures/ProtoTex/Orange/texture_04.png" id="2_qhqgy"]
 [ext_resource type="PackedScene" uid="uid://cgekyn5sdqeli" path="res://scenes/cam_system.tscn" id="3_qlg0r"]
 [ext_resource type="Script" uid="uid://b5orq854wgj4v" path="res://scripts/input_manager.gd" id="4_dqkch"]
+[ext_resource type="Script" uid="uid://w8v0v76wc4r2" path="res://addons/godOSC/scripts/OSCServer.gd" id="6_tuyoq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckr0i"]
 albedo_texture = ExtResource("2_qhqgy")
@@ -37,6 +38,12 @@ mesh = SubResource("SphereMesh_ifpyu")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ball" unique_id=856811526]
 shape = SubResource("SphereShape3D_ifpyu")
 
-[node name="InputManager" type="Node" parent="." unique_id=1519919217]
+[node name="InputManager" type="Node" parent="." unique_id=1519919217 node_paths=PackedStringArray("osc_server")]
 script = ExtResource("4_dqkch")
+osc_server = NodePath("../OSCServer")
 metadata/_custom_type_script = "uid://b5orq854wgj4v"
+
+[node name="OSCServer" type="Node" parent="." unique_id=1764389214]
+script = ExtResource("6_tuyoq")
+port = 9000
+metadata/_custom_type_script = "uid://w8v0v76wc4r2"

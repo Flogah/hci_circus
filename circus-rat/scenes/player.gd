@@ -28,7 +28,7 @@ func drive_ball(delta):
 	var instant_speed:float = (desired_speed - curr_speed) / delta
 	var accel_force = instant_speed * ball.mass
 	var limited_force:float = clampf(accel_force, -breaking, acceleration)
-	print(limited_force)
+	#print(limited_force)
 	
 	if debug:
 		Draw3d.line(ball.global_position, ball.global_position + ball.linear_velocity.normalized() * limited_force, Color.HOT_PINK, 1)
