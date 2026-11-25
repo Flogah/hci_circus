@@ -61,6 +61,7 @@ debug = true
 collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=796569087]
+visible = false
 mesh = SubResource("PlaneMesh_ifpyu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=2013835885]

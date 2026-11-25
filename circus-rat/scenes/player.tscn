@@ -7,6 +7,11 @@
 [ext_resource type="Script" uid="uid://b5orq854wgj4v" path="res://scripts/input_manager.gd" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://w8v0v76wc4r2" path="res://addons/godOSC/scripts/OSCServer.gd" id="6_tuyoq"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tuyoq"]
+cull_mode = 2
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_ifpyu"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ckr0i"]
 albedo_texture = ExtResource("2_qhqgy")
 uv1_triplanar = true
@@ -16,9 +21,10 @@ material = SubResource("StandardMaterial3D_ckr0i")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ifpyu"]
 
-[node name="Player" type="Node3D" unique_id=1397222929 node_paths=PackedStringArray("input_manager")]
+[node name="Player" type="Node3D" unique_id=1397222929 node_paths=PackedStringArray("input_manager", "pose_triangle")]
 script = ExtResource("1_qhqgy")
 input_manager = NodePath("InputManager")
+pose_triangle = NodePath("Sprite3D/PoseTriangle")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=105484274]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.1881586, 0)
@@ -27,6 +33,11 @@ texture = ExtResource("1_g2els")
 
 [node name="CamSystem" parent="Sprite3D" unique_id=1524334975 instance=ExtResource("3_qlg0r")]
 transform = Transform3D(3.333333, 0, 0, 0, 2.6284945, 2.0499089, 0, -2.0499089, 2.6284945, 0, -3.9605284, 0)
+
+[node name="PoseTriangle" type="MeshInstance3D" parent="Sprite3D" unique_id=890867306]
+transform = Transform3D(33.33333, 0, 0, 0, 33.33333, 0, 0, 0, 33.33333, 0, 0.52878475, 0)
+material_override = SubResource("StandardMaterial3D_tuyoq")
+mesh = SubResource("ImmediateMesh_ifpyu")
 
 [node name="Ball" type="RigidBody3D" parent="." unique_id=969521298]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

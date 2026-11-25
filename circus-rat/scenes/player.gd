@@ -5,6 +5,7 @@ extends Node3D
 @export var breaking: float = 5.0
 @export var max_speed:float = 20.0
 @export var input_manager: InputManager
+@export var pose_triangle: MeshInstance3D
 
 @onready var rat: Sprite3D = $Sprite3D
 var rat_offset:Vector3 = Vector3.ZERO
@@ -34,7 +35,10 @@ func drive_ball(delta):
 		Draw3d.line(ball.global_position, ball.global_position + ball.linear_velocity.normalized() * limited_force, Color.HOT_PINK, 1)
 		Draw3d.line(ball.global_position, ball.global_position + intended_dir * 2.0, Color.GREEN, 1)
 		Draw3d.line(ball.global_position, ball.global_position + Vector3.UP * curr_speed, Color.RED, 1)
-	
+		
+		Draw3d.line(ball.global_position, ball.global_position + input_manager.normal * 10.0, Color.AQUA, 1)
+		pose_triangle.mesh = input_manager.triangle
+		
 	if can_run:
 		if intended_dir.length_squared() > 0.0:
 			ball.apply_central_force(intended_dir * limited_force)
