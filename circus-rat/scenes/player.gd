@@ -2,8 +2,8 @@ extends Node3D
 
 @export var debug:bool = false
 @export var acceleration:float = 5.0
-@export var breaking: float = 5.0
-@export var max_speed:float = 20.0
+@export var breaking: float = 15.0
+@export var max_speed:float = 2.0
 @export var input_manager: InputManager
 @export var pose_triangle: MeshInstance3D
 
@@ -35,14 +35,7 @@ func drive_ball(delta):
 		Draw3d.line(ball.global_position, ball.global_position + ball.linear_velocity.normalized() * limited_force, Color.HOT_PINK, 1)
 		Draw3d.line(ball.global_position, ball.global_position + intended_dir * 2.0, Color.GREEN, 1)
 		Draw3d.line(ball.global_position, ball.global_position + Vector3.UP * curr_speed, Color.RED, 1)
-		
-		var tri_center: Vector3 = Vector3.ZERO
-		for point in input_manager.triangle_points:
-			tri_center += point
-		tri_center = tri_center / max(1.0, input_manager.triangle_points.size())
-		var corrected_normal = input_manager.normal#.rotated(Vector3.RIGHT, deg_to_rad(60.0))
-		Draw3d.line(rat.global_position + tri_center, rat.global_position + tri_center - corrected_normal * 2.0, Color.AQUA, 1)
-		pose_triangle.mesh = input_manager.triangle
+		#Draw3d.line(rat.global_position, rat.global_position + input_manager.leaning * 2.0, Color.AQUA, 1)
 		
 	if can_run:
 		if intended_dir.length_squared() > 0.0:
