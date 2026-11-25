@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://lkdyenr4mf2c"]
 
-[ext_resource type="Texture2D" uid="uid://d0joxcicffvvp" path="res://icon.svg" id="1_g2els"]
 [ext_resource type="Script" uid="uid://cwo7q7gvkwgsv" path="res://scenes/player.gd" id="1_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://ccfq2eyl5m7jq" path="res://assets/textures/ProtoTex/Orange/texture_04.png" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://bpbf1auxbw84q" path="res://assets/textures/rat/RatMiddle.png" id="2_tuyoq"]
 [ext_resource type="PackedScene" uid="uid://cgekyn5sdqeli" path="res://scenes/cam_system.tscn" id="3_qlg0r"]
 [ext_resource type="Script" uid="uid://b5orq854wgj4v" path="res://scripts/input_manager.gd" id="4_dqkch"]
 [ext_resource type="Script" uid="uid://w8v0v76wc4r2" path="res://addons/godOSC/scripts/OSCServer.gd" id="6_tuyoq"]
@@ -28,8 +28,9 @@ pose_triangle = NodePath("Sprite3D/PoseTriangle")
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=105484274]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.1881586, 0)
-billboard = 1
-texture = ExtResource("1_g2els")
+offset = Vector2(0, 50)
+billboard = 2
+texture = ExtResource("2_tuyoq")
 
 [node name="CamSystem" parent="Sprite3D" unique_id=1524334975 instance=ExtResource("3_qlg0r")]
 transform = Transform3D(3.333333, 0, 0, 0, 2.6284945, 2.0499089, 0, -2.0499089, 2.6284945, 0, -3.9605284, 0)
