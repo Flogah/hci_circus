@@ -46,11 +46,11 @@ func _process(_delta: float) -> void:
 	
 	var flat_input:Vector3 = leaning
 	flat_input.y = 0.0
-	input_direction_detected.emit(flat_input)
+	#input_direction_detected.emit(flat_input)
 	
-	#var input:Vector2 = Input.get_vector("left", "right", "forward", "back")
-	#var spatial_input:Vector3 = Vector3(input.x, 0.0, input.y)
-	#input_direction_detected.emit(spatial_input)
+	var input:Vector2 = Input.get_vector("left", "right", "forward", "back")
+	var spatial_input:Vector3 = Vector3(input.x, 0.0, input.y)
+	input_direction_detected.emit(spatial_input)
 
 #func _input(event: InputEvent) -> void:
 	#if event.is_action_pressed("manual_jump"):

@@ -2,12 +2,11 @@ extends Node3D
 
 @export var debug:bool = false
 @export var acceleration:float = 5.0
-@export var breaking: float = 15.0
-@export var max_speed:float = 2.0
+@export var breaking: float = 5.0
+@export var max_speed:float = 5.0
 @export var input_manager: InputManager
-@export var pose_triangle: MeshInstance3D
 
-@onready var rat: Sprite3D = $Sprite3D
+@onready var rat: AnimatedSprite3D = $Rat
 var rat_offset:Vector3 = Vector3.ZERO
 @onready var ball: RigidBody3D = $Ball
 
@@ -19,6 +18,7 @@ func _ready() -> void:
 	input_manager.input_direction_detected.connect(func(new_dir): intended_dir = new_dir)
 
 func _physics_process(delta: float) -> void:
+	animate_rat()
 	rat.position = ball.position + rat_offset
 	rotate_direction_to_camera()
 	drive_ball(delta)
@@ -48,3 +48,16 @@ func drive_ball(delta):
 func rotate_direction_to_camera():
 	var current_camera = get_viewport().get_camera_3d()
 	intended_dir = intended_dir.rotated(Vector3.UP, current_camera.global_rotation.y).normalized()
+
+func animate_rat():
+	# replace with figuring out velocity cross camera.RIGHT
+	print(abs(ball.linear_velocity.x))
+	if abs(ball.linear_velocity.x) < 0.2:
+		#ball barely moves left/right
+		rat.play("idle")
+	else:
+		rat.play("idle_facing")
+		if ball.linear_velocity.x > 0.0:
+			rat.flip_h = false
+		elif ball.linear_velocity.x < 0.0:
+			rat.flip_h = true
