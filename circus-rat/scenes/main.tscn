@@ -35,7 +35,7 @@ uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_ifpyu"]
 material = SubResource("StandardMaterial3D_jyhfs")
-size = Vector3(0.6, 0.6, 10)
+size = Vector3(1.734375, 0.6, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sugp2"]
 size = Vector3(3, 3, 3)
@@ -61,7 +61,6 @@ debug = true
 collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=796569087]
-visible = false
 mesh = SubResource("PlaneMesh_ifpyu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=2013835885]
